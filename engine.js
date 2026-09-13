@@ -109,6 +109,22 @@
     return new Date(seconds * 1000).toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
   }
 
+  // Compatibility with the shared Infinity channel remote/live-guide contract.
+  function createDaySchedule(nowMs, catalog) {
+    return buildSchedule(catalog, new Date(nowMs)).map((slot) => ({
+      id: `${dateKey(new Date(nowMs))}-${String(slot.index).padStart(2,"0")}`,
+      movie: slot.movie,
+      startsAtMs: slot.start * 1000,
+      endsAtMs: slot.end * 1000,
+      blockSeconds: BLOCK_SECONDS
+    }));
+  }
+
+  function resolve(nowMs, schedule) {
+    const block = schedule.find((slot) => nowMs >= slot.startsAtMs && nowMs < slot.endsAtMs) || schedule[0] || null;
+    return {block};
+  }
+
   window.HermitEngine = {
     BLOCK_SECONDS,
     DAY_SECONDS,
@@ -116,6 +132,8 @@
     buildSchedule,
     findSlot,
     findSegment,
-    formatTime
+    formatTime,
+    createDaySchedule,
+    resolve
   };
 })();
