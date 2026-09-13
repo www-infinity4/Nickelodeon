@@ -29,6 +29,7 @@
   let schedule = engine.buildSchedule(catalog, scheduleDate);
   let ytPlayer = null;
   let ytReady = false;
+  let apiRequested = false;
   let entered = false;
   let liveMode = true;
   let loadedKey = "";
@@ -78,6 +79,14 @@
     els.title.textContent = episodeName(item);
     els.time.textContent = `${engine.formatTime(slot.start)} – ${engine.formatTime(slot.end)}`;
     setProgramArt(item);
+    try {
+      localStorage.setItem("infinity_live_Nickelodeon", JSON.stringify({
+        title: episodeName(item),
+        startsAtMs: slot.start * 1000,
+        endsAtMs: slot.end * 1000,
+        updatedAt: Date.now()
+      }));
+    } catch (_) {}
   }
 
   function renderStationCard(slot, message) {
@@ -93,6 +102,20 @@
     els.stationCard.hidden = true;
     const node = playerNode();
     if (node) node.hidden = false;
+  }
+
+  function ensureYouTubeApi() {
+    if (ytReady || ytPlayer) return;
+    if (window.YT && window.YT.Player) {
+      window.onYouTubeIframeAPIReady();
+      return;
+    }
+    if (apiRequested) return;
+    apiRequested = true;
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    tag.referrerPolicy = "strict-origin-when-cross-origin";
+    document.head.appendChild(tag);
   }
 
   function syncPlayer(force) {
@@ -111,7 +134,11 @@
       renderStationCard(slot, "Source unavailable — skipped, not replaced by a clip");
       return;
     }
-    if (!entered || !ytReady || !ytPlayer) return;
+    if (!entered) return;
+    if (!ytReady || !ytPlayer) {
+      ensureYouTubeApi();
+      return;
+    }
 
     const key = `${slot.index}:${segment.videoId}`;
     const target = Math.max(0, Math.floor(now - segment.start + (segment.mediaOffset || 0)));
@@ -201,8 +228,12 @@
 
   function startOver() {
     liveMode = false;
+    if (!ytReady || !ytPlayer) {
+      ensureYouTubeApi();
+      return;
+    }
     const slot = currentSlot();
-    if (!slot || !ytReady || !ytPlayer) return;
+    if (!slot) return;
     const segment = slot.segments[0];
     if (segment && segment.type === "program") {
       showPlayer();
@@ -219,10 +250,13 @@
 
   function joinLive() {
     liveMode = true;
+    ensureYouTubeApi();
     syncPlayer(true);
   }
 
   window.onYouTubeIframeAPIReady = function () {
+    if (ytPlayer) return;
+    apiRequested = true;
     ytPlayer = new YT.Player("player", {
       width:"100%",
       height:"100%",
@@ -248,6 +282,7 @@
   els.enter.addEventListener("click", function () {
     entered = true;
     els.enter.hidden = true;
+    ensureYouTubeApi();
     syncPlayer(true);
   });
   els.startOver.addEventListener("click", startOver);
