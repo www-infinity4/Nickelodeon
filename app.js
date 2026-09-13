@@ -8,7 +8,6 @@
     title: document.getElementById("programTitle"),
     eyebrow: document.getElementById("programEyebrow"),
     time: document.getElementById("programTime"),
-    player: document.getElementById("player"),
     stationCard: document.getElementById("stationCard"),
     stationCardTitle: document.getElementById("stationCardTitle"),
     stationCardTime: document.getElementById("stationCardTime"),
@@ -34,8 +33,10 @@
   let liveMode = true;
   let loadedKey = "";
   let failedVideo = "";
+  let lastSlotIndex = -1;
 
   function nowSeconds() { return Date.now() / 1000; }
+  function playerNode() { return document.getElementById("player"); }
   function artFor(item) {
     return item && item.videoId ? `https://i.ytimg.com/vi/${item.videoId}/hqdefault.jpg` : "assets/channel-share.svg";
   }
@@ -59,6 +60,7 @@
       schedule = engine.buildSchedule(catalog, scheduleDate);
       loadedKey = "";
       failedVideo = "";
+      lastSlotIndex = -1;
       renderGuide();
       renderNext();
     }
@@ -81,14 +83,16 @@
   function renderStationCard(slot, message) {
     if (!slot) return;
     els.stationCard.hidden = false;
-    els.player.hidden = true;
+    const node = playerNode();
+    if (node) node.hidden = true;
     els.stationCardTitle.textContent = message || "Next full episode at the half hour";
     els.stationCardTime.textContent = `Next: ${engine.formatTime(slot.end)}`;
   }
 
   function showPlayer() {
     els.stationCard.hidden = true;
-    els.player.hidden = false;
+    const node = playerNode();
+    if (node) node.hidden = false;
   }
 
   function syncPlayer(force) {
@@ -104,7 +108,7 @@
       return;
     }
     if (segment.videoId === failedVideo) {
-      renderStationCard(slot, "That source is unavailable right now");
+      renderStationCard(slot, "Source unavailable — skipped, not replaced by a clip");
       return;
     }
     if (!entered || !ytReady || !ytPlayer) return;
@@ -256,15 +260,18 @@
   updateClock();
   updateShareStatus();
   const initial = currentSlot();
-  if (initial) renderHeader(initial);
+  if (initial) {
+    lastSlotIndex = initial.index;
+    renderHeader(initial);
+  }
 
   setInterval(function () {
     updateClock();
-    renderProgress();
-    const before = currentSlot();
     ensureToday();
-    const after = currentSlot();
-    if (before && after && before.index !== after.index) {
+    renderProgress();
+    const slot = currentSlot();
+    if (slot && slot.index !== lastSlotIndex) {
+      lastSlotIndex = slot.index;
       renderNext();
       renderGuide();
       if (liveMode) syncPlayer(true);
