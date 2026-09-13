@@ -65,4 +65,8 @@
     {id:"aya-08",show:"Are You Afraid of the Dark?",title:"The Tale of the Dollmaker",year:1994,eraLabel:"Nickelodeon · 1992–1996",videoId:"1aES3gk5-Q8",runtimeSeconds:1440,source:"Are You Afraid of the Dark? - WildBrain",cleared:true},
     {id:"aya-09",show:"Are You Afraid of the Dark?",title:"The Tale of the Whispering Walls",year:1993,eraLabel:"Nickelodeon · 1992–1996",videoId:"qntSIcZO9zI",runtimeSeconds:1440,source:"Are You Afraid of the Dark? - WildBrain",cleared:true}
   ];
+
+  // The shared channel remote expects these legacy names when it calculates live programming.
+  window.HERMIT_CATALOG = window.NICKELODEON_CATALOG.map((program) => ({...program, collection:program.show}));
+  window.HERMIT_COMMERCIALS = [];
 })();
