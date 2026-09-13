@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Nickelodeon 1986–1996</title>
+  <desc id="desc">Full episodes on a synchronized daily classic TV channel.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a0742"/>
+      <stop offset="1" stop-color="#100319"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.38" r="0.7">
+      <stop offset="0" stop-color="#ff7b00" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ff7b00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <path d="M205 162c57-76 172-88 265-47 61-68 178-79 258-23 101-48 226 8 255 107 81 29 124 118 92 197-31 76-113 115-190 96-52 67-157 90-235 49-84 55-202 40-268-36-98 33-208-24-226-126-75-49-94-151-43-217 22-28 54-47 92-56z" fill="#ff7200"/>
+  <text x="600" y="282" text-anchor="middle" fill="#241100" font-family="Arial,Helvetica,sans-serif" font-size="108" font-weight="900" letter-spacing="-5">NICKELODEON</text>
+  <text x="600" y="370" text-anchor="middle" fill="#fff4db" font-family="Arial,Helvetica,sans-serif" font-size="62" font-weight="900" letter-spacing="10">1986–1996</text>
+  <text x="600" y="454" text-anchor="middle" fill="#ffe25a" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="800" letter-spacing="5">FULL EPISODES · DAILY LIVE SCHEDULE</text>
+  <text x="600" y="532" text-anchor="middle" fill="#dfc4e8" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700">Classic cartoons · game shows · live action · midnight refresh</text>
+</svg>
