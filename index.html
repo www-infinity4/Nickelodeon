@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nickelodeon 1986–1996 · Live Classic Channel</title>
+  <meta name="description" content="A synchronized 1986–1996 classic Nickelodeon channel built around full episodes only, with a daily schedule that changes at local midnight.">
+  <link rel="canonical" href="https://www-infinity4.github.io/Nickelodeon/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nickelodeon 1986–1996 · Live Classic Channel">
+  <meta property="og:description" content="Full episodes only. One synchronized daily classic-TV schedule.">
+  <meta property="og:url" content="https://www-infinity4.github.io/Nickelodeon/">
+  <meta property="og:image" content="https://i.ytimg.com/vi/XEZCY95JliY/maxresdefault.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nickelodeon 1986–1996 · Live Classic Channel">
+  <meta name="twitter:description" content="Full episodes only · synchronized classic TV schedule">
+  <meta name="twitter:image" content="https://i.ytimg.com/vi/XEZCY95JliY/maxresdefault.jpg">
+  <meta name="theme-color" content="#ff6a00">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="--program-art:url('assets/channel-share.svg')">
+  <header class="masthead">
+    <a class="brand" href="./" aria-label="Nickelodeon channel home">
+      <span class="brand-mark">NIC</span>
+      <span>Nickelodeon</span>
+    </a>
+    <div class="on-air"><span></span>ON AIR</div>
+    <details class="channel-menu">
+      <summary aria-label="Open channel remote"><span>☰</span><span class="menu-label">Channels</span></summary>
+      <nav id="channelMenuNav"><a href="./" aria-current="page">Nickelodeon</a></nav>
+    </details>
+    <div id="stationClock" aria-label="local station clock">--:--:--</div>
+  </header>
+
+  <main>
+    <section class="theater" aria-label="Live Nickelodeon channel">
+      <div class="marquee">
+        <div>
+          <p id="programEyebrow">NICKELODEON · 1986–1996</p>
+          <h1 id="programTitle">Classic Nickelodeon</h1>
+        </div>
+        <div class="program-time" id="programTime">Full episodes only</div>
+      </div>
+
+      <div class="screen-shell">
+        <div class="screen-glow"></div>
+        <div id="player" class="player" hidden></div>
+        <div id="stationCard" class="station-card" hidden>
+          <p>NICKELODEON · 1986–1996</p>
+          <strong id="stationCardTitle">Next full episode at the half hour</strong>
+          <span id="stationCardTime"></span>
+        </div>
+        <button id="enterChannel" class="enter-button" type="button">
+          <span>Enter Nickelodeon</span>
+          <small>Join the same live point in the schedule as everyone else</small>
+        </button>
+      </div>
+
+      <div class="controls" aria-label="Playback controls">
+        <button id="startOver" type="button">Start episode over</button>
+        <button id="rewind30" type="button">↶ 30 sec</button>
+        <button id="joinLive" class="live-button" type="button"><span></span>Join live</button>
+        <button id="shareChannel" class="share-button" type="button">Share +1/10 ⭐</button>
+        <div id="shareStatus" class="share-status">0/10 shares · 0 ⭐</div>
+      </div>
+
+      <div class="progress-wrap" aria-label="Current half-hour slot progress">
+        <div class="progress-meta"><span id="elapsedLabel">0:00</span><span id="remainingLabel">-30:00</span></div>
+        <div class="progress-track"><div id="progressBar"></div></div>
+      </div>
+    </section>
+
+    <section class="next-up">
+      <div class="section-heading">
+        <p>WHAT'S NEXT</p>
+        <h2>Full episodes. No chopped clips.</h2>
+      </div>
+      <div id="nextGrid" class="next-grid"></div>
+    </section>
+
+    <section class="guide" id="guide">
+      <div class="section-heading guide-heading">
+        <div><p>DAILY TV GUIDE</p><h2>48 half-hour slots</h2></div>
+        <div id="guideDate"></div>
+      </div>
+      <div class="guide-note">The lineup stays fixed for the current local day and changes at 12:00 AM. If a source disappears, the channel shows an intermission instead of substituting a short clip.</div>
+      <div id="guideRows" class="guide-rows"></div>
+    </section>
+  </main>
+
+  <section class="phi-web-search" aria-label="Infinity Phi search">
+    <div><p>KEEP EXPLORING</p><h2>Infinity Phi</h2></div>
+    <form action="https://www-infinity4.github.io/C13b0/phi" method="get">
+      <input name="q" type="search" placeholder="Search the Infinity network" aria-label="Search Infinity Phi">
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <section class="channel-directory" aria-label="Live channel remote">
+    <p>Live channels</p>
+    <nav id="channelDirectory"><a href="./" aria-current="page">Nickelodeon</a></nav>
+  </section>
+
+  <footer>
+    <span>NICKELODEON · 1986–1996</span>
+    <p>Classic-era schedule · full-length program sources only</p>
+  </footer>
+
+  <script src="data/catalog.js"></script>
+  <script src="engine.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://www-infinity4.github.io/TNT/channels.js"></script>
+  <script src="app.js"></script>
+  <script src="https://www-infinity4.github.io/TNT/weekly-guide.js"></script>
+  <script src="https://www-infinity4.github.io/TNT/pip.js"></script>
+</body>
+</html>
